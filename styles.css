@@ -14,7 +14,7 @@ body {
 
 .left_container,
 .right_container {
-  border: 1px solid #ccc;
+  border: 5px solid #ccc;
   padding: 15px;
   width: 45%;
 }
@@ -32,7 +32,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 5px solid #ddd;
   margin-bottom: 10px;
 }
 
