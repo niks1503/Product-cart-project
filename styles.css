@@ -1,0 +1,132 @@
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  margin: auto;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin: 10px;
+
+  .products_heading {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .left_container {
+    width: 65%;
+    border: 5px solid black;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+
+    .product_container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 5px;
+      background-color: rgb(66, 50, 31);
+      margin: 5px;
+      color: white;
+
+      .btn_div {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
+    }
+  }
+
+  .right_container {
+    width: 35%;
+    border: 5px solid black;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+
+    .cart_heading {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+} */
+
+/* General styling */
+.main {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.left_container,
+.right_container {
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 45%;
+}
+
+.products_heading,
+.cart_heading {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+/* Product container styling */
+.product_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.btn_div {
+  display: flex;
+  align-items: center;
+}
+
+.minus_btn,
+.plus_btn {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.product_update {
+  padding: 0 10px;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+/* Cart styling */
+.cart_list {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart_quantity,
+.cart_total {
+  margin-left: 10px;
+}
+
+.cart_total_amount {
+  font-size: 1.5em;
+  text-align: right;
+  margin-top: 20px;
+}
