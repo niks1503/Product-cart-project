@@ -2,7 +2,7 @@ let minusBtns = document.querySelectorAll(".minus_btn");
 let plusBtns = document.querySelectorAll(".plus_btn");
 let cartContainer = document.querySelector(".cart_product_div");
 
-// Function to update the total amount in the cart
+// Function to display total amount or "Cart is empty" message
 function updateTotal() {
   let totalAmount = 0;
   document.querySelectorAll(".cart_list").forEach((item) => {
@@ -12,21 +12,22 @@ function updateTotal() {
     totalAmount += itemTotal;
   });
 
-  // Display total amount in the cart or "Cart is empty" message
+  // Check if totalElement already exists, if not create it
   let totalElement = document.querySelector(".cart_total_amount");
   if (!totalElement) {
     totalElement = document.createElement("div");
     totalElement.className = "cart_total_amount";
     cartContainer.appendChild(totalElement);
   }
+
   if (totalAmount > 0) {
-    totalElement.innerHTML = `<strong>Total:</strong> $${totalAmount}`;
+    totalElement.innerHTML = `<strong>Total:</strong> ${totalAmount}`;
   } else {
-    totalElement.innerHTML = "Cart is empty";
+    totalElement.innerHTML = "No product is added to the cart!";
   }
 }
 
-// Function to update the cart items
+// Function to update cart items
 function updateCart(productName, productPrice, quantity) {
   let existingCartItem = document.querySelector(
     `.cart_list[data-name="${productName}"]`
@@ -37,9 +38,14 @@ function updateCart(productName, productPrice, quantity) {
     let quantityElem = existingCartItem.querySelector(".cart_quantity");
     quantityElem.innerText = `${quantity} × ${productPrice}`;
     let totalElem = existingCartItem.querySelector(".cart_total");
-    totalElem.innerText = `$${productPrice * quantity}`;
+    totalElem.innerText = `${productPrice * quantity}`;
+
+    // Remove item if quantity is zero
+    if (quantity === 0) {
+      existingCartItem.remove();
+    }
   } else if (quantity > 0) {
-    // Create a new cart item
+    // Create a new cart item if it doesn't already exist
     let cartList = document.createElement("div");
     cartList.className = "cart_list";
     cartList.setAttribute("data-name", productName);
@@ -53,7 +59,7 @@ function updateCart(productName, productPrice, quantity) {
 
     let total = document.createElement("p");
     total.className = "cart_total";
-    total.innerText = `$${productPrice * quantity}`;
+    total.innerText = `${productPrice * quantity}`;
 
     cartList.appendChild(product_Name);
     cartList.appendChild(product_quantity);
@@ -62,16 +68,12 @@ function updateCart(productName, productPrice, quantity) {
     cartContainer.appendChild(cartList);
   }
 
-  if (quantity === 0 && existingCartItem) {
-    existingCartItem.remove();
-  }
-
-  // Update total amount
+  // Update total and check for empty cart message
   updateTotal();
 }
 
-// Add event listeners to "+" buttons
-plusBtns.forEach((btn, index) => {
+// Add event listeners to "+" buttons to increase quantity
+plusBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     let productContainer = btn.closest(".product_container");
     let productName = productContainer.querySelector(".product_name").innerText;
@@ -84,13 +86,13 @@ plusBtns.forEach((btn, index) => {
     let quantity = parseInt(productUpdatePara.innerText) + 1;
     productUpdatePara.innerText = quantity;
 
-    // Update cart
+    // Update cart with new quantity
     updateCart(productName, productPrice, quantity);
   });
 });
 
-// Add event listeners to "-" buttons
-minusBtns.forEach((btn, index) => {
+// Add event listeners to "-" buttons to decrease quantity
+minusBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     let productContainer = btn.closest(".product_container");
     let productName = productContainer.querySelector(".product_name").innerText;
@@ -99,11 +101,14 @@ minusBtns.forEach((btn, index) => {
     );
     let productUpdatePara = productContainer.querySelector(".product_update");
 
-    // Decrease product quantity, but not below 0
+    // Decrease product quantity but don't go below 0
     let quantity = Math.max(0, parseInt(productUpdatePara.innerText) - 1);
     productUpdatePara.innerText = quantity;
 
-    // Update cart
+    // Update cart with new quantity
     updateCart(productName, productPrice, quantity);
   });
 });
+
+// Initial call to display "Cart is empty" when the page loads
+updateTotal();
